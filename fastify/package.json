@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@fastify/cors": "^7.0.0",
+    "@fastify/mongodb": "^5.0.0",
+    "fastify": "^3.29.0",
+    "fastify-esm-loader": "^0.0.11",
+    "fastify-mongodb": "^4.2.0",
+    "fastify-plugin": "^3.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
