@@ -19,30 +19,29 @@ const axiosInstance = axios.create({
 
 axiosInstance.get(`/cats`).then((res) => {
   const { cats } = res.data;
+  console.log(cats);
   render(cats);
 });
 
 // 검색
 document.querySelector("#btnSearch").addEventListener("click", (e) => {
   e.preventDefault();
-  const inputSearch = document.querySelector("#inputSearch");
-  axiosInstance.get(`/cats/${inputSearch.value}`).then((res) => {
+  const name = document.querySelector("#inputSearch").value;
+  console.log(name);
+  axiosInstance.get("/cats/" + name).then((res) => {
+    console.log(res);
     const { cats } = res.data;
-
     render(cats);
   });
 });
 
-// 등록
-document.querySelector;
-
-axiosInstance.get("/cats").then((res) => console.log(res));
-
+// 화면 출력
 function render(cats) {
   document.querySelector(".catList ul").innerHTML = "";
   cats.forEach((cat) => {
     const catLi = document.createElement("li");
     const catText = document.createTextNode(`${cat.name} (${cat.email})`);
+    catLi.setAttribute("data-cat-id", cat._id);
 
     catLi.appendChild(catText);
     document.querySelector(".catList ul").appendChild(catLi);
@@ -59,16 +58,44 @@ document.querySelector("#openSignup").addEventListener("click", (e) => {
 // 등록버튼 클릭
 document.querySelector("#btnSubmit").addEventListener("click", (e) => {
   e.preventDefault();
-  const inputName = document.querySelector("#inputName").value;
-  const inputEmail = document.querySelector("#inputEmail").value;
-  const inputPassword = document.querySelector("#inputPassword").value;
-  const inputs = {
-    inputName,
-    inputEmail,
-    inputPassword,
+  const name = document.querySelector("#inputName").value;
+  const email = document.querySelector("#inputEmail").value;
+  const password = document.querySelector("#inputPassword").value;
+  const cat = {
+    name,
+    email,
+    password,
   };
 
-  axiosInstance.post("/cats", inputs).then((res) => {
-    console.log(res);
-  });
+  axiosInstance
+    .post("/cats", {
+      cat,
+    })
+    .then(() => {
+      axiosInstance.get("/cats").then((res) => render(res.data.cats));
+
+      document.querySelector(".signupForm").style.display = "none";
+      document.querySelector(".signupForm").reset();
+      document.querySelector("#openSignup").style.display = "inline-block";
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+});
+
+document.querySelector(".catList").addEventListener("click", function (e) {
+  if (e.target.matches(".catList li")) {
+    const id = e.target.dataset.catId;
+    console.log(id);
+    if (confirm("정말 삭제하시겠습니까?")) {
+      axiosInstance
+        .delete("/cats/" + id)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }
 });

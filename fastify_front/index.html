@@ -18,35 +18,28 @@
   </head>
   <body>
     <div id="app">
-      <div class="inputBox">
+      <form class="inputBox">
         <div>
           <input type="text" id="inputSearch" />
           <button id="btnSearch">검색</button>
         </div>
-
-        <div class="catList">
-          <ul></ul>
-        </div>
-        <div class="signupForm">
-          <div>
-            <label>
-              이름 : <input type="text" name="name" id="inputName" />
-            </label>
-            <br />
-            <label>
-              이메일 : <input type="email" name="" id="inputEmail" />
-            </label>
-            <br />
-            <label>
-              비밀번호 :
-              <input type="password" name="password" id="inputPassword" />
-            </label>
-          </div>
-          <button id="btnSubmit">등록</button>
-          <button id="btnCancel">취소</button>
-        </div>
-        <button id="openSignup">회원가입</button>
+      </form>
+      <div class="catList">
+        <ul></ul>
       </div>
+      <form class="signupForm">
+        <label> 이름 : <input type="text" name="name" id="inputName" /> </label>
+        <br />
+        <label> 이메일 : <input type="email" name="" id="inputEmail" /> </label>
+        <br />
+        <label>
+          비밀번호 :
+          <input type="password" name="password" id="inputPassword" />
+        </label>
+        <button id="btnSubmit">등록</button>
+        <button id="btnCancel">취소</button>
+      </form>
+      <button id="openSignup">회원가입</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./index.js"></script>
